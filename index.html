@@ -32,7 +32,10 @@ function search(searchString, dataset){
 function displayResults(){
   let matches = search(this.value, cities);
   let data = matches.map(match => {
-    return `<li><span>${match.city}, ${match.state}</span>
+    let regex = new RegExp(this.value, 'gi');
+    let cityName = match.city.replace(regex, `<span class='hl'>${this.value}</span>`)
+    let stateName = match.state.replace(regex, `<span class='hl'>${this.value}</span>`)
+    return `<li><span>${cityName}, ${stateName}</span>
     <span class='population'>${match.population}</span>
     </li>`;
   }).join('');
