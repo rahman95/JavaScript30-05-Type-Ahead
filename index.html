@@ -22,12 +22,27 @@ fetch(endpoint)
   .then(response => response.json())
   .then(data => cities.push(...data));
 
-function findMatches(searchString, dataset){
+function search(searchString, dataset){
   return dataset.filter(data => {
     let regex = new RegExp(searchString, 'gi');
     return data.city.match(regex) || data.state.match(regex);
   })
 }
+
+function displayResults(){
+  let matches = search(this.value, cities);
+  let data = matches.map(match => {
+    return `<li><span>${match.city}, ${match.state}</span>
+    <span class='population'>${match.population}</span>
+    </li>`;
+  }).join('');
+  suggestionsBox.innerHTML = data;
+}
+
+const searchInput = document.querySelector('.search');
+const suggestionsBox = document.querySelector('.suggestions')
+
+searchInput.addEventListener('keyup', displayResults);
 
 </script>
   </body>
