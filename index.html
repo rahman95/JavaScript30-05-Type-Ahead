@@ -36,10 +36,14 @@ function displayResults(){
     let cityName = match.city.replace(regex, `<span class='hl'>${this.value}</span>`)
     let stateName = match.state.replace(regex, `<span class='hl'>${this.value}</span>`)
     return `<li><span>${cityName}, ${stateName}</span>
-    <span class='population'>${match.population}</span>
+    <span class='population'>${numberWithCommas(match.population)}</span>
     </li>`;
   }).join('');
   suggestionsBox.innerHTML = data;
+}
+
+function numberWithCommas(x){
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
 const searchInput = document.querySelector('.search');
